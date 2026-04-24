@@ -1,156 +1,93 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>IncomeGuard | Excess Business Interruption Coverage — TCIM</title>
-    <meta name="description" content="Get a quote for IncomeGuard Excess Business Interruption coverage. A proprietary follow-form facility by Trans Canada Insurance Marketing for brokers." />
+    <title>IncomeGuard | MGA Underwriter Tool — TCIM</title>
+    <meta name="description" content="IncomeGuard MGA Underwriter Tool — Generate excess BI quote attachments for brokers. Trans Canada Insurance Marketing." />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
                         "surface-tint": "#406182",
-                        "inverse-on-surface": "#f2f0f0",
                         "surface-container": "#efeded",
-                        "surface-dim": "#dbd9d9",
-                        "primary-fixed": "#cfe5ff",
-                        "on-error": "#ffffff",
                         "surface-container-low": "#f5f3f3",
-                        "on-primary": "#ffffff",
-                        "on-background": "#1b1c1c",
-                        "background": "#fbf9f8",
-                        "inverse-primary": "#a8caef",
                         "surface-container-high": "#eae8e7",
-                        "on-primary-fixed-variant": "#274969",
-                        "on-surface-variant": "#42474d",
-                        "primary": "#001629",
-                        "primary-fixed-dim": "#a8caef",
-                        "on-surface": "#1b1c1c",
-                        "error-container": "#ffdad6",
-                        "tertiary": "#101617",
-                        "error": "#ba1a1a",
-                        "secondary-container": "#7af1fc",
-                        "on-primary-fixed": "#001d34",
-                        "outline-variant": "#c3c7ce",
-                        "primary-container": "#002b49",
-                        "on-primary-container": "#7293b6",
-                        "on-secondary-container": "#006e75",
-                        "surface-container-lowest": "#ffffff",
-                        "on-tertiary-container": "#8c9193",
-                        "inverse-surface": "#303030",
-                        "secondary-fixed-dim": "#5dd8e2",
-                        "surface-variant": "#e4e2e2",
-                        "surface-bright": "#fbf9f8",
-                        "on-secondary-fixed": "#002022",
-                        "surface": "#fbf9f8",
-                        "on-tertiary": "#ffffff",
-                        "tertiary-fixed": "#dee3e5",
-                        "on-tertiary-fixed": "#171c1e",
-                        "secondary-fixed": "#7df4ff",
-                        "on-secondary-fixed-variant": "#004f54",
-                        "tertiary-container": "#242a2c",
-                        "on-error-container": "#93000a",
-                        "secondary": "#006970",
-                        "tertiary-fixed-dim": "#c2c7c9",
-                        "on-tertiary-fixed-variant": "#424849",
-                        "on-secondary": "#ffffff",
-                        "outline": "#73777e",
                         "surface-container-highest": "#e4e2e2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "on-surface-variant": "#42474d",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#7293b6",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#006e75",
+                        "background": "#fbf9f8",
+                        "primary": "#001629",
+                        "primary-container": "#002b49",
+                        "secondary": "#006970",
+                        "secondary-container": "#7af1fc",
+                        "outline": "#73777e",
+                        "outline-variant": "#c3c7ce",
+                        "error": "#ba1a1a",
                         "tcim-blue": "#0069b4",
                         "tcim-dark": "#002b49",
                     },
-                    borderRadius: {
-                        DEFAULT: "0.25rem",
-                        lg: "0.5rem",
-                        xl: "0.75rem",
-                        full: "9999px",
-                    },
-                    spacing: {
-                        "margin-page": "40px",
-                        "container-max": "1280px",
-                        "stack-sm": "8px",
-                        gutter: "24px",
-                        unit: "8px",
-                        "stack-md": "16px",
-                        "stack-lg": "32px",
-                    },
                     fontFamily: {
-                        "label-caps": ["Inter"],
-                        "body-lg": ["Inter"],
-                        h1: ["Work Sans"],
-                        "body-md": ["Inter"],
-                        h3: ["Work Sans"],
-                        h2: ["Work Sans"],
-                    },
-                    fontSize: {
-                        "label-caps": ["12px", { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "700" }],
-                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
-                        h1: ["40px", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "600" }],
-                        "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
-                        h3: ["24px", { lineHeight: "1.4", fontWeight: "500" }],
-                        h2: ["32px", { lineHeight: "1.3", fontWeight: "600" }],
+                        heading: ["Work Sans", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
                     },
                 },
             },
         };
     </script>
     <style>
-        .diagonal-bg {
-            background: linear-gradient(165deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 60%, rgba(122, 241, 252, 0.06) 100%);
-        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Work Sans', sans-serif; }
 
+        /* Geometric accent */
         .geometric-accent {
+            position: fixed;
+            bottom: 0; right: 0;
+            width: 35vw; height: 35vh;
             clip-path: polygon(100% 0, 0% 100%, 100% 100%);
-            background: linear-gradient(135deg, transparent 0%, rgba(0, 105, 112, 0.05) 100%);
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 105, 112, 0.04) 100%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* Smooth fade-in on load */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+        /* Smooth view transitions */
+        .view-enter { animation: viewFadeIn 0.35s ease-out forwards; }
+        @keyframes viewFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out forwards;
+
+        /* Table row hover */
+        .row-hover { transition: background-color 0.15s ease; }
+        .row-hover:hover { background-color: #f5f3f3; }
+
+        /* Input focus glow */
+        input:focus, select:focus, textarea:focus {
+            border-color: #006970 !important;
+            box-shadow: 0 0 0 3px rgba(0, 105, 112, 0.1) !important;
+            outline: none !important;
         }
 
-        /* Quote result pulse */
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 105, 112, 0.15); }
-            50% { box-shadow: 0 0 20px 4px rgba(0, 105, 112, 0.15); }
-        }
-        .pulse-glow {
-            animation: pulseGlow 2s ease-in-out infinite;
-        }
+        /* Card lift */
+        .card-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .card-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 43, 73, 0.08); }
 
-        /* Number counter animation */
-        @keyframes countUp {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .count-up {
-            animation: countUp 0.4s ease-out forwards;
-        }
+        /* Pulse dot */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .pulse-dot { animation: pulse 2s ease-in-out infinite; }
 
-        /* Document card hover lift */
-        .doc-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        }
-        .doc-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 43, 73, 0.08);
-        }
-
-        /* Indemnity period selector styling */
+        /* Select chevron */
         select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2373777e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
@@ -158,462 +95,420 @@
             background-size: 16px;
         }
 
-        /* CTA button shimmer */
-        .btn-primary {
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-primary::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-primary:hover::after {
-            left: 100%;
+        /* Print styles */
+        @media print {
+            header, footer, .no-print { display: none !important; }
+            body { background: white !important; }
         }
 
-        /* Scroll-triggered sections */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+        /* Result table for quote output */
+        .quote-table th { text-align: left; padding: 10px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #42474d; border-bottom: 2px solid #e4e2e2; }
+        .quote-table td { padding: 12px 16px; border-bottom: 1px solid #efeded; font-size: 14px; }
+        .quote-table tr:last-child td { border-bottom: 2px solid #002b49; font-weight: 600; }
+
+        /* Toast notification */
+        .toast {
+            position: fixed; bottom: 24px; right: 24px; z-index: 100;
+            transform: translateY(100px); opacity: 0;
+            transition: transform 0.35s ease, opacity 0.35s ease;
         }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .toast.show { transform: translateY(0); opacity: 1; }
     </style>
 </head>
 
-<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<body class="bg-background text-on-surface overflow-x-hidden min-h-screen flex flex-col">
 
-    <!-- Top Navigation Bar -->
+    <!-- Geometric Background Accent -->
+    <div class="geometric-accent"></div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- HEADER                                 -->
+    <!-- ═══════════════════════════════════════ -->
     <header class="bg-white sticky top-0 z-50 shadow-sm">
-        <nav class="flex justify-between items-center h-16 px-6 lg:px-8 max-w-[1280px] mx-auto w-full">
-            <!-- TCIM Logo -->
-            <a href="https://www.tcim.ca" class="flex items-center gap-2 group" aria-label="TCIM Home">
-                <span class="text-2xl font-black text-tcim-dark tracking-tighter font-['Work_Sans'] group-hover:text-secondary transition-colors">TCIM</span>
-            </a>
-            <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center gap-8">
-                <a class="font-['Work_Sans'] font-medium text-sm tracking-tight text-slate-500 hover:text-slate-900 transition-colors"
-                    href="https://www.tcim.ca">Home</a>
-                <a class="font-['Work_Sans'] font-medium text-sm tracking-tight text-slate-500 hover:text-slate-900 transition-colors"
-                    href="https://www.tcim.ca/our-people">Our People</a>
-                <a class="font-['Work_Sans'] font-medium text-sm tracking-tight text-slate-500 hover:text-slate-900 transition-colors"
-                    href="https://www.tcim.ca/career">Career</a>
-                <a class="font-['Work_Sans'] font-medium text-sm tracking-tight text-secondary border-b-2 border-secondary pb-0.5"
-                    href="#">IncomeGuard</a>
-                <a class="font-['Work_Sans'] font-medium text-sm tracking-tight text-slate-500 hover:text-slate-900 transition-colors"
-                    href="https://www.tcim.ca/contact-us">Contact Us</a>
-            </div>
-            <!-- CTA -->
-            <a href="#quote-section"
-                class="bg-secondary text-on-secondary px-5 py-2 rounded font-label-caps text-label-caps transition-all active:scale-95 shadow-sm hover:brightness-110">
-                Get a Quote
-            </a>
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-toggle" class="md:hidden text-slate-700 p-2" aria-label="Menu">
-                <span class="material-symbols-outlined text-2xl">menu</span>
+        <nav class="flex justify-between items-center h-14 px-6 lg:px-8 max-w-[1360px] mx-auto w-full">
+            <button onclick="showView('dashboard')" class="flex items-center gap-3 group" aria-label="Dashboard">
+                <span class="text-xl font-black text-tcim-dark tracking-tighter font-heading group-hover:text-secondary transition-colors">TCIM</span>
+                <span class="hidden sm:inline text-xs font-medium text-outline border-l border-outline-variant pl-3">IncomeGuard</span>
             </button>
-        </nav>
-        <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-6 pb-4">
-            <div class="flex flex-col gap-3 pt-3">
-                <a class="font-['Work_Sans'] text-sm text-slate-600 py-2" href="https://www.tcim.ca">Home</a>
-                <a class="font-['Work_Sans'] text-sm text-slate-600 py-2" href="https://www.tcim.ca/our-people">Our People</a>
-                <a class="font-['Work_Sans'] text-sm text-slate-600 py-2" href="https://www.tcim.ca/career">Career</a>
-                <a class="font-['Work_Sans'] text-sm text-secondary font-semibold py-2" href="#">IncomeGuard</a>
-                <a class="font-['Work_Sans'] text-sm text-slate-600 py-2" href="https://www.tcim.ca/contact-us">Contact Us</a>
+            <div class="flex items-center gap-4">
+                <button onclick="showView('dashboard')" class="text-xs font-semibold text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-base">home</span>
+                    <span class="hidden sm:inline">Dashboard</span>
+                </button>
+                <button onclick="showView('generator')" class="bg-secondary text-on-secondary px-4 py-1.5 rounded text-xs font-bold tracking-wider uppercase hover:brightness-110 transition-all active:scale-95 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                    New Attachment
+                </button>
             </div>
-        </div>
+        </nav>
     </header>
 
-    <main class="relative">
+    <!-- ═══════════════════════════════════════ -->
+    <!-- MAIN CONTENT                           -->
+    <!-- ═══════════════════════════════════════ -->
+    <main class="flex-1 relative z-10">
 
-        <!-- ═══════════════════════════════════════ -->
-        <!-- HERO SECTION with Quote Calculator     -->
-        <!-- ═══════════════════════════════════════ -->
-        <section id="quote-section" class="relative pt-20 pb-28 overflow-hidden diagonal-bg">
-            <div class="absolute top-0 right-0 w-1/3 h-full geometric-accent -z-10"></div>
-            <div class="max-w-[1280px] mx-auto px-6 lg:px-8 relative">
-                <div class="max-w-3xl mb-14 animate-fade-in-up">
-                    <div class="inline-flex items-center gap-2 mb-5">
-                        <span class="h-px w-8 bg-secondary"></span>
-                        <span class="font-label-caps text-label-caps text-secondary uppercase">Broker Quote Portal</span>
+        <!-- ─────────────────────────────────── -->
+        <!-- VIEW: DASHBOARD                     -->
+        <!-- ─────────────────────────────────── -->
+        <div id="view-dashboard" class="view-enter max-w-[1360px] mx-auto px-6 lg:px-8 py-10">
+
+            <!-- Welcome & CTA -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                <div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-2 h-2 rounded-full bg-secondary pulse-dot"></span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-secondary">MGA Underwriter Tool</span>
                     </div>
-                    <h1 class="font-h1 text-h1 text-primary mb-5 leading-tight">
-                        INCOMEGUARD<br />EXCESS BI COVERAGE
-                    </h1>
-                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-                        A proprietary follow-form facility designed for corporate portfolios, ensuring
-                        continuous financial resilience through complex business interruptions.
-                    </p>
+                    <h1 class="font-heading text-3xl lg:text-4xl font-semibold text-primary tracking-tight leading-tight">IncomeGuard Attachments</h1>
+                    <p class="text-on-surface-variant mt-2 text-sm max-w-lg">Generate optional extended BI protection attachments to include alongside existing broker quotes.</p>
                 </div>
+                <button onclick="showView('generator')" class="bg-secondary text-on-secondary px-6 py-3 rounded-lg text-sm font-bold tracking-wider uppercase hover:brightness-110 transition-all active:scale-95 flex items-center gap-2 shadow-sm shrink-0">
+                    <span class="material-symbols-outlined text-lg">add_circle</span>
+                    Generate IncomeGuard Attachment
+                </button>
+            </div>
 
-                <!-- ── Quote Calculator ── -->
-                <div class="bg-white border border-outline-variant/50 p-8 lg:p-10 max-w-4xl mx-auto rounded-lg shadow-sm relative animate-fade-in-up" style="animation-delay: 0.15s;">
-                    <div class="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-secondary opacity-20 rounded-tl-lg"></div>
-
-                    <div class="flex flex-col gap-6">
-                        <!-- Calculator Inputs -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="flex flex-col gap-2">
-                                <label for="bi-premium" class="font-label-caps text-label-caps text-primary uppercase">Primary BI Premium ($)</label>
-                                <div class="relative">
-                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-outline font-medium">$</span>
-                                    <input id="bi-premium"
-                                        class="w-full pl-10 pr-4 py-3 border border-outline-variant/60 focus:border-secondary focus:ring-1 focus:ring-secondary/30 rounded bg-background transition-all outline-none text-base"
-                                        placeholder="e.g. 25,000" type="text" inputmode="numeric" />
-                                </div>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label for="indemnity-period" class="font-label-caps text-label-caps text-primary uppercase">Extended Indemnity Period</label>
-                                <select id="indemnity-period"
-                                    class="w-full px-4 py-3 border border-outline-variant/60 focus:border-secondary focus:ring-1 focus:ring-secondary/30 rounded bg-background transition-all outline-none appearance-none cursor-pointer text-base pr-10">
-                                    <option value="37.5">12-18 Months (+37.5%)</option>
-                                    <option value="75.0">12-24 Months (+75.0%)</option>
-                                    <option value="102.5">12-30 Months (+102.5%)</option>
-                                    <option value="130.0">12-36 Months (+130.0%)</option>
-                                    <option value="150.0">12-42 Months (+150.0%)</option>
-                                    <option value="170.0">12-48 Months (+170.0%)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Calculated Result -->
-                        <div id="quote-result" class="hidden bg-surface-container-low border border-outline-variant/30 rounded-lg p-5 transition-all">
-                            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
-                                <div>
-                                    <p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">Estimated Excess BI Premium</p>
-                                    <p id="calculated-premium" class="font-h1 text-3xl lg:text-4xl text-secondary font-semibold tracking-tight count-up">$0.00</p>
-                                </div>
-                                <p class="text-xs text-on-surface-variant max-w-xs">Indicative quote only. Final premium subject to underwriting review.</p>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                            <button id="btn-calculate"
-                                class="flex-1 btn-primary bg-primary-container text-white py-3.5 rounded font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-primary transition-all active:scale-[0.98]">
-                                <span class="material-symbols-outlined text-lg">calculate</span>
-                                CALCULATE PREMIUM
-                            </button>
-                            <a href="mailto:newsubmission@tcim.ca?subject=IncomeGuard%20Bind%20Request"
-                                class="flex-1 bg-secondary text-on-secondary py-3.5 rounded font-label-caps text-label-caps flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-[0.98]">
-                                <span class="material-symbols-outlined text-lg">send</span>
-                                SUBMIT TO UNDERWRITING
-                            </a>
-                        </div>
-                    </div>
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-white rounded-lg p-5 border border-outline-variant/30">
+                    <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1">Total Attachments</p>
+                    <p id="stat-total" class="text-2xl font-semibold text-primary font-heading">0</p>
+                </div>
+                <div class="bg-white rounded-lg p-5 border border-outline-variant/30">
+                    <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1">This Month</p>
+                    <p id="stat-month" class="text-2xl font-semibold text-primary font-heading">0</p>
+                </div>
+                <div class="bg-white rounded-lg p-5 border border-outline-variant/30">
+                    <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1">Total Premium</p>
+                    <p id="stat-premium" class="text-2xl font-semibold text-secondary font-heading">$0</p>
+                </div>
+                <div class="bg-white rounded-lg p-5 border border-outline-variant/30">
+                    <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1">Avg. Extension</p>
+                    <p id="stat-avg" class="text-2xl font-semibold text-primary font-heading">—</p>
                 </div>
             </div>
-        </section>
 
-        <!-- ═══════════════════════════════════════ -->
-        <!-- HOW INCOMEGUARD WORKS                  -->
-        <!-- ═══════════════════════════════════════ -->
-        <section class="py-24 bg-white reveal">
-            <div class="max-w-[1280px] mx-auto px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-20 items-center">
+            <!-- Recent Attachments Table -->
+            <div class="bg-white rounded-lg border border-outline-variant/30 overflow-hidden">
+                <div class="px-6 py-4 border-b border-outline-variant/20 flex items-center justify-between">
+                    <h2 class="font-heading font-semibold text-primary text-lg">Recent Attachments</h2>
+                    <span class="text-xs text-on-surface-variant">Stored locally in your browser</span>
+                </div>
+                <div id="attachments-table-wrap" class="overflow-x-auto">
+                    <!-- Empty State -->
+                    <div id="empty-state" class="py-16 text-center">
+                        <span class="material-symbols-outlined text-5xl text-outline-variant mb-4 block">folder_open</span>
+                        <p class="text-on-surface-variant font-medium mb-1">No attachments yet</p>
+                        <p class="text-sm text-outline mb-6">Generate your first IncomeGuard attachment to get started.</p>
+                        <button onclick="showView('generator')" class="text-secondary text-sm font-bold hover:underline flex items-center gap-1 mx-auto">
+                            <span class="material-symbols-outlined text-base">add</span>
+                            Create Attachment
+                        </button>
+                    </div>
+                    <!-- Table (hidden when empty) -->
+                    <table id="attachments-table" class="w-full hidden">
+                        <thead class="bg-surface-container-low">
+                            <tr>
+                                <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Client Name</th>
+                                <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Risk / Description</th>
+                                <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Date Created</th>
+                                <th class="text-left px-6 py-3 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Premium</th>
+                                <th class="text-right px-6 py-3 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attachments-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─────────────────────────────────── -->
+        <!-- VIEW: QUOTE GENERATOR               -->
+        <!-- ─────────────────────────────────── -->
+        <div id="view-generator" class="hidden max-w-[960px] mx-auto px-6 lg:px-8 py-10">
+
+            <!-- Back + Header -->
+            <div class="mb-8">
+                <button onclick="showView('dashboard')" class="text-sm text-on-surface-variant hover:text-on-surface flex items-center gap-1 mb-4 transition-colors">
+                    <span class="material-symbols-outlined text-base">arrow_back</span>
+                    Back to Dashboard
+                </button>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    <span class="text-xs font-bold uppercase tracking-widest text-secondary">New Quote Attachment</span>
+                </div>
+                <h1 class="font-heading text-2xl lg:text-3xl font-semibold text-primary tracking-tight">Add IncomeGuard Extension</h1>
+                <p class="text-on-surface-variant text-sm mt-1">Attach to an existing BI quote</p>
+            </div>
+
+            <!-- FORM -->
+            <form id="quote-form" onsubmit="return false;" class="space-y-6">
+
+                <!-- ── Section: Client Context ── -->
+                <div class="bg-white rounded-lg border border-outline-variant/30 p-6 lg:p-8">
+                    <div class="flex items-center gap-2 mb-5">
+                        <span class="material-symbols-outlined text-secondary text-xl">person</span>
+                        <h2 class="font-heading font-semibold text-primary text-base">Client Context</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="flex flex-col gap-1.5">
+                            <label for="client-name" class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Client Name <span class="text-error">*</span></label>
+                            <input id="client-name" type="text" required placeholder="e.g. Acme Manufacturing Ltd."
+                                class="px-4 py-2.5 border border-outline-variant/60 rounded bg-background text-sm transition-all" />
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label for="risk-desc" class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Risk / Description <span class="text-error">*</span></label>
+                            <input id="risk-desc" type="text" required placeholder="e.g. Warehouse & Distribution"
+                                class="px-4 py-2.5 border border-outline-variant/60 rounded bg-background text-sm transition-all" />
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label for="ibc-code" class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">IBC Code <span class="text-error">*</span></label>
+                            <input id="ibc-code" type="text" required placeholder="e.g. 6100"
+                                class="px-4 py-2.5 border border-outline-variant/60 rounded bg-background text-sm transition-all" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Section: Primary Policy ── -->
+                <div class="bg-white rounded-lg border border-outline-variant/30 p-6 lg:p-8">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="material-symbols-outlined text-secondary text-xl">shield</span>
+                        <h2 class="font-heading font-semibold text-primary text-base">Primary Policy (Already Quoted)</h2>
+                    </div>
+                    <p class="text-xs text-on-surface-variant mb-5 ml-7">Enter the values from the broker's existing 12-month BI quote.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="flex flex-col gap-1.5">
+                            <label for="insured-limit" class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Insured Limit ($) <span class="text-error">*</span></label>
+                            <div class="relative">
+                                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-sm font-medium">$</span>
+                                <input id="insured-limit" type="text" inputmode="numeric" required placeholder="e.g. 1,000,000"
+                                    class="w-full pl-8 pr-4 py-2.5 border border-outline-variant/60 rounded bg-background text-sm transition-all currency-input" />
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label for="bi-premium" class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">12-Month Primary BI Premium ($) <span class="text-error">*</span></label>
+                            <div class="relative">
+                                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-sm font-medium">$</span>
+                                <input id="bi-premium" type="text" inputmode="numeric" required placeholder="e.g. 25,000"
+                                    class="w-full pl-8 pr-4 py-2.5 border border-outline-variant/60 rounded bg-background text-sm transition-all currency-input" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Section: Extended Period Selection ── -->
+                <div class="bg-white rounded-lg border border-outline-variant/30 p-6 lg:p-8">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="material-symbols-outlined text-secondary text-xl">schedule</span>
+                        <h2 class="font-heading font-semibold text-primary text-base">Extended Indemnity Periods</h2>
+                    </div>
+                    <p class="text-xs text-on-surface-variant mb-5 ml-7">Select which extension options to present to the broker. All checked periods will appear in the output.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <label class="flex items-center gap-3 p-3 rounded border border-outline-variant/40 hover:border-secondary/50 cursor-pointer transition-colors bg-background">
+                            <input type="checkbox" name="period" value="18" data-factor="0.375" checked class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary" />
+                            <div><p class="text-sm font-medium">12–18 Months</p><p class="text-xs text-on-surface-variant">Factor: 37.5%</p></div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded border border-outline-variant/40 hover:border-secondary/50 cursor-pointer transition-colors bg-background">
+                            <input type="checkbox" name="period" value="24" data-factor="0.750" checked class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary" />
+                            <div><p class="text-sm font-medium">12–24 Months</p><p class="text-xs text-on-surface-variant">Factor: 75.0%</p></div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded border border-outline-variant/40 hover:border-secondary/50 cursor-pointer transition-colors bg-background">
+                            <input type="checkbox" name="period" value="30" data-factor="1.025" checked class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary" />
+                            <div><p class="text-sm font-medium">12–30 Months</p><p class="text-xs text-on-surface-variant">Factor: 102.5%</p></div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded border border-outline-variant/40 hover:border-secondary/50 cursor-pointer transition-colors bg-background">
+                            <input type="checkbox" name="period" value="36" data-factor="1.300" class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary" />
+                            <div><p class="text-sm font-medium">12–36 Months</p><p class="text-xs text-on-surface-variant">Factor: 130.0%</p></div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded border border-outline-variant/40 hover:border-secondary/50 cursor-pointer transition-colors bg-background">
+                            <input type="checkbox" name="period" value="42" data-factor="1.500" class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary" />
+                            <div><p class="text-sm font-medium">12–42 Months</p><p class="text-xs text-on-surface-variant">Factor: 150.0%</p></div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded border border-outline-variant/40 hover:border-secondary/50 cursor-pointer transition-colors bg-background">
+                            <input type="checkbox" name="period" value="48" data-factor="1.700" class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary" />
+                            <div><p class="text-sm font-medium">12–48 Months</p><p class="text-xs text-on-surface-variant">Factor: 170.0%</p></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button type="button" onclick="generateQuote()"
+                        class="flex-1 bg-primary-container text-white py-3.5 rounded-lg text-sm font-bold tracking-wider uppercase flex items-center justify-center gap-2 hover:bg-primary transition-all active:scale-[0.98]">
+                        <span class="material-symbols-outlined text-lg">bolt</span>
+                        Generate Attachment
+                    </button>
+                </div>
+            </form>
+
+            <!-- ─────────────────────────────────── -->
+            <!-- QUOTE OUTPUT (hidden until generated) -->
+            <!-- ─────────────────────────────────── -->
+            <div id="quote-output" class="hidden mt-8 space-y-6 view-enter">
+
+                <!-- Success Banner -->
+                <div class="bg-secondary/5 border border-secondary/20 rounded-lg p-4 flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary text-xl mt-0.5">check_circle</span>
                     <div>
-                        <div class="w-12 h-1 bg-secondary mb-8"></div>
-                        <h2 class="font-h2 text-h2 text-primary mb-8">HOW INCOMEGUARD WORKS</h2>
-                        <div class="space-y-8">
-                            <div class="flex gap-4">
-                                <span class="material-symbols-outlined text-secondary text-2xl mt-0.5 shrink-0">verified_user</span>
-                                <div>
-                                    <h3 class="font-['Work_Sans'] font-semibold text-primary text-lg mb-2">Continuous Coverage</h3>
-                                    <p class="text-on-surface-variant leading-relaxed">Our facility bridges the gap between primary
-                                        limits and total exposure. Follow-form terms mean zero overlap friction for your clients.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-4">
-                                <span class="material-symbols-outlined text-secondary text-2xl mt-0.5 shrink-0">account_tree</span>
-                                <div>
-                                    <h3 class="font-['Work_Sans'] font-semibold text-primary text-lg mb-2">Follow-Form Logic</h3>
-                                    <p class="text-on-surface-variant leading-relaxed">Simplified underwriting that mirrors primary
-                                        policy terms, reducing administrative burden for brokers across all eligible industries.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-4">
-                                <span class="material-symbols-outlined text-secondary text-2xl mt-0.5 shrink-0">schedule</span>
-                                <div>
-                                    <h3 class="font-['Work_Sans'] font-semibold text-primary text-lg mb-2">Flexible Indemnity Periods</h3>
-                                    <p class="text-on-surface-variant leading-relaxed">Choose from 18 to 48-month extended periods, tailored to your client's specific industry recovery timelines.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- IncomeGuard Logo / Visual -->
-                    <div class="relative flex items-center justify-center">
-                        <div class="w-full max-w-md aspect-square bg-gradient-to-br from-tcim-dark to-primary-container rounded-2xl flex flex-col items-center justify-center p-10 shadow-xl">
-                            <div class="w-32 h-32 mb-6 flex items-center justify-center">
-                                <svg viewBox="0 0 120 120" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- Shield shape -->
-                                    <path d="M60 10 L100 30 L100 65 Q100 95 60 112 Q20 95 20 65 L20 30 Z" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-                                    <!-- House shape -->
-                                    <path d="M60 35 L85 55 L85 85 L35 85 L35 55 Z" fill="none" stroke="#5dd8e2" stroke-width="2.5" stroke-linejoin="round"/>
-                                    <path d="M60 35 L35 55" stroke="#5dd8e2" stroke-width="2.5" stroke-linecap="round"/>
-                                    <path d="M60 35 L85 55" stroke="#5dd8e2" stroke-width="2.5" stroke-linecap="round"/>
-                                    <!-- Windows -->
-                                    <rect x="45" y="62" width="12" height="12" rx="1.5" fill="none" stroke="#f0c946" stroke-width="2"/>
-                                    <rect x="63" y="62" width="12" height="12" rx="1.5" fill="none" stroke="#f0c946" stroke-width="2"/>
-                                    <!-- Door -->
-                                    <rect x="53" y="76" width="14" height="9" rx="1" fill="none" stroke="#5dd8e2" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <span class="text-white text-2xl font-bold tracking-[0.25em] font-['Work_Sans']">INCOMEGUARD</span>
-                            <span class="text-slate-400 text-xs tracking-[0.15em] mt-2 font-['Inter']">EXCESS BUSINESS INTERRUPTION</span>
-                        </div>
+                        <p class="font-medium text-primary text-sm">Attachment Generated Successfully</p>
+                        <p class="text-xs text-on-surface-variant mt-0.5">Review the details below, then download or email to the broker.</p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- ═══════════════════════════════════════ -->
-        <!-- KEY BROKER BENEFITS (Bento Style)      -->
-        <!-- ═══════════════════════════════════════ -->
-        <section class="py-24 bg-surface-container-low reveal">
-            <div class="max-w-[1280px] mx-auto px-6 lg:px-8">
-                <div class="text-center mb-14">
-                    <h2 class="font-h2 text-h2 text-primary mb-3">KEY BROKER BENEFITS</h2>
-                    <p class="text-on-surface-variant">Empowering advisors with institutional-grade risk management
-                        tools.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    <div class="bg-white p-8 rounded-lg flex flex-col gap-4 doc-card border border-transparent hover:border-outline-variant/40">
-                        <span class="material-symbols-outlined text-secondary text-3xl">speed</span>
-                        <h3 class="font-['Work_Sans'] font-semibold text-lg text-primary">Rapid Deployment</h3>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">Quotes generated in real-time with automated PDF
-                            binders ready for immediate client presentation.</p>
+                <!-- Quote Summary Card -->
+                <div class="bg-white rounded-lg border border-outline-variant/30 overflow-hidden">
+                    <div class="bg-primary-container px-6 py-4">
+                        <p class="text-xs font-bold uppercase tracking-widest text-on-primary-container mb-1">Optional Extended Business Interruption Protection</p>
+                        <p id="output-client-name" class="text-white font-heading font-semibold text-lg"></p>
                     </div>
-                    <div class="bg-primary-container p-8 rounded-lg flex flex-col gap-4 text-white doc-card">
-                        <span class="material-symbols-outlined text-secondary-container text-3xl">trending_up</span>
-                        <h3 class="font-['Work_Sans'] font-semibold text-lg">Competitive Edge</h3>
-                        <p class="text-sm text-on-primary-container leading-relaxed">Access exclusive capacity and pricing models not
-                            available through standard market channels.</p>
+                    <div class="px-6 py-4 border-b border-outline-variant/20 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div>
+                            <p class="text-xs text-on-surface-variant uppercase font-bold tracking-widest mb-0.5">Risk</p>
+                            <p id="output-risk" class="font-medium text-primary"></p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-on-surface-variant uppercase font-bold tracking-widest mb-0.5">IBC Code</p>
+                            <p id="output-ibc" class="font-medium text-primary"></p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-on-surface-variant uppercase font-bold tracking-widest mb-0.5">Insured Limit</p>
+                            <p id="output-limit" class="font-medium text-primary"></p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-on-surface-variant uppercase font-bold tracking-widest mb-0.5">12-Mo BI Premium</p>
+                            <p id="output-primary" class="font-medium text-primary"></p>
+                        </div>
                     </div>
-                    <div class="bg-white p-8 rounded-lg flex flex-col gap-4 doc-card border border-transparent hover:border-outline-variant/40">
-                        <span class="material-symbols-outlined text-secondary text-3xl">security</span>
-                        <h3 class="font-['Work_Sans'] font-semibold text-lg text-primary">Risk Precision</h3>
-                        <p class="text-sm text-on-surface-variant leading-relaxed">Highly calibrated indemnity periods tailored to
-                            specific industry recovery timelines.</p>
+                    <div class="px-6 py-2">
+                        <p class="text-xs text-on-surface-variant italic py-2">In addition to the 12-month Business Interruption coverage provided in your primary policy, the following optional extension periods are available. This option is designed to attach only after the initial 12-month indemnity period.</p>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ═══════════════════════════════════════ -->
-        <!-- PRODUCT RESOURCES & DOCUMENTS          -->
-        <!-- ═══════════════════════════════════════ -->
-        <section class="py-24 bg-white reveal">
-            <div class="max-w-[1280px] mx-auto px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
-                    <div>
-                        <h2 class="font-h2 text-h2 text-primary mb-3">PRODUCT RESOURCES</h2>
-                        <p class="text-on-surface-variant">Essential documentation for broker due diligence.</p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full quote-table">
+                            <thead>
+                                <tr>
+                                    <th>Extension Period</th>
+                                    <th>Factor</th>
+                                    <th>Extension Premium</th>
+                                    <th>Service Fee (2.5%)</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="output-tbody"></tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
 
-                    <!-- Premium Calculation Explainer -->
-                    <a href="#" class="group doc-card border border-outline-variant/50 p-6 rounded-lg bg-background block">
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="material-symbols-outlined text-red-500 text-3xl">picture_as_pdf</span>
-                            <span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
-                        </div>
-                        <p class="font-label-caps text-label-caps text-primary mb-1">PREMIUM CALCULATION EXPLAINER</p>
-                        <p class="text-xs text-on-surface-variant uppercase">PDF</p>
-                    </a>
-
-                    <!-- Policy Conditions -->
-                    <a href="#" class="group doc-card border border-outline-variant/50 p-6 rounded-lg bg-background block">
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="material-symbols-outlined text-red-500 text-3xl">picture_as_pdf</span>
-                            <span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
-                        </div>
-                        <p class="font-label-caps text-label-caps text-primary mb-1">910000-02 POLICY CONDITIONS</p>
-                        <p class="text-xs text-on-surface-variant uppercase">PDF</p>
-                    </a>
-
-                    <!-- Excess BI Form -->
-                    <a href="#" class="group doc-card border border-outline-variant/50 p-6 rounded-lg bg-background block">
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="material-symbols-outlined text-red-500 text-3xl">picture_as_pdf</span>
-                            <span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
-                        </div>
-                        <p class="font-label-caps text-label-caps text-primary mb-1">EXCESS BUSINESS INCOME FORM</p>
-                        <p class="text-xs text-on-surface-variant uppercase">PDF</p>
-                    </a>
-
-                    <!-- Dec Page Example -->
-                    <a href="#" class="group doc-card border border-outline-variant/50 p-6 rounded-lg bg-background block">
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="material-symbols-outlined text-red-500 text-3xl">picture_as_pdf</span>
-                            <span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
-                        </div>
-                        <p class="font-label-caps text-label-caps text-primary mb-1">INCOMEGUARD DEC PAGE EXAMPLE</p>
-                        <p class="text-xs text-on-surface-variant uppercase">PDF</p>
-                    </a>
-
-                    <!-- Claims Examples -->
-                    <a href="#" class="group doc-card border border-outline-variant/50 p-6 rounded-lg bg-background block">
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="material-symbols-outlined text-red-500 text-3xl">picture_as_pdf</span>
-                            <span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
-                        </div>
-                        <p class="font-label-caps text-label-caps text-primary mb-1">CANADIAN CLAIMS EXAMPLES</p>
-                        <p class="text-xs text-on-surface-variant uppercase">PDF</p>
-                    </a>
-
-                    <!-- Typical Exclusions -->
-                    <a href="#" class="group doc-card border border-outline-variant/50 p-6 rounded-lg bg-background block">
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="material-symbols-outlined text-red-500 text-3xl">picture_as_pdf</span>
-                            <span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
-                        </div>
-                        <p class="font-label-caps text-label-caps text-primary mb-1">TYPICAL EXCLUSIONS EXAMPLE</p>
-                        <p class="text-xs text-on-surface-variant uppercase">PDF</p>
-                    </a>
-
-                    <!-- Eligible Industry List -->
-                    <a href="#" class="group doc-card border border-outline-variant/50 p-6 rounded-lg bg-background block">
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="material-symbols-outlined text-green-600 text-3xl">table_chart</span>
-                            <span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
-                        </div>
-                        <p class="font-label-caps text-label-caps text-primary mb-1">ELIGIBLE INDUSTRY LIST</p>
-                        <p class="text-xs text-on-surface-variant uppercase">Excel</p>
-                    </a>
-
-                    <!-- Tip Sheet -->
-                    <a href="#" class="group doc-card border border-outline-variant/50 p-6 rounded-lg bg-background block">
-                        <div class="flex justify-between items-start mb-5">
-                            <span class="material-symbols-outlined text-red-500 text-3xl">picture_as_pdf</span>
-                            <span class="material-symbols-outlined text-outline opacity-0 group-hover:opacity-100 transition-opacity">download</span>
-                        </div>
-                        <p class="font-label-caps text-label-caps text-primary mb-1">INCOMEGUARD TIP SHEET</p>
-                        <p class="text-xs text-on-surface-variant uppercase">PDF</p>
-                    </a>
-
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="downloadPDF()"
+                        class="flex-1 bg-primary-container text-white py-3 rounded-lg text-sm font-bold tracking-wider uppercase flex items-center justify-center gap-2 hover:bg-primary transition-all active:scale-[0.98]">
+                        <span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+                        Download PDF
+                    </button>
+                    <button onclick="document.getElementById('email-section').classList.toggle('hidden')"
+                        class="flex-1 bg-secondary text-on-secondary py-3 rounded-lg text-sm font-bold tracking-wider uppercase flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-[0.98]">
+                        <span class="material-symbols-outlined text-lg">mail</span>
+                        Email Attachment to Broker
+                    </button>
                 </div>
-            </div>
-        </section>
 
-        <!-- ═══════════════════════════════════════ -->
-        <!-- READY TO TAKE ACTION CTA               -->
-        <!-- ═══════════════════════════════════════ -->
-        <section class="relative py-20 overflow-hidden reveal">
-            <div class="absolute inset-0 bg-gradient-to-br from-primary-container to-tcim-dark"></div>
-            <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-            <div class="max-w-[1280px] mx-auto px-6 lg:px-8 relative text-center">
-                <h2 class="font-h2 text-h2 text-white mb-4">Ready to take action?</h2>
-                <p class="text-on-primary-container text-lg mb-8 max-w-xl mx-auto">
-                    Fill the application and email it to
-                    <a href="mailto:newsubmission@tcim.ca" class="text-secondary-container underline underline-offset-2 hover:text-white transition-colors">newsubmission@tcim.ca</a>
-                    and one of our underwriters will contact you shortly.
-                </p>
-                <a href="mailto:newsubmission@tcim.ca?subject=IncomeGuard%20New%20Submission"
-                    class="inline-flex items-center gap-2 bg-white text-primary-container px-8 py-3.5 rounded font-label-caps text-label-caps hover:bg-slate-50 transition-all active:scale-[0.98] shadow-lg">
-                    <span class="material-symbols-outlined text-lg">mail</span>
-                    EMAIL US NOW
-                </a>
-            </div>
-        </section>
+                <!-- ── Email Tool ── -->
+                <div id="email-section" class="hidden bg-white rounded-lg border border-outline-variant/30 p-6 lg:p-8 view-enter">
+                    <div class="flex items-center gap-2 mb-5">
+                        <span class="material-symbols-outlined text-secondary text-xl">forward_to_inbox</span>
+                        <h2 class="font-heading font-semibold text-primary text-base">Email Attachment to Broker</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex flex-col gap-1.5">
+                            <label for="email-to" class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">To</label>
+                            <input id="email-to" type="email" placeholder="broker@example.com"
+                                class="px-4 py-2.5 border border-outline-variant/60 rounded bg-background text-sm transition-all" />
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label for="email-subject" class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Subject</label>
+                            <input id="email-subject" type="text"
+                                class="px-4 py-2.5 border border-outline-variant/60 rounded bg-background text-sm transition-all" />
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label for="email-body" class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Body</label>
+                            <textarea id="email-body" rows="5"
+                                class="px-4 py-2.5 border border-outline-variant/60 rounded bg-background text-sm transition-all resize-y"></textarea>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 rounded bg-secondary/5 border border-secondary/10">
+                            <input type="checkbox" id="auto-include" class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary mt-0.5" />
+                            <label for="auto-include" class="text-sm text-primary cursor-pointer">
+                                <span class="font-medium">Include this attachment with all BI quotes</span>
+                                <span class="block text-xs text-on-surface-variant mt-0.5">When checked, a reminder will appear each time you generate a new quote.</span>
+                            </label>
+                        </div>
+                        <button onclick="sendEmail()"
+                            class="w-full bg-secondary text-on-secondary py-3 rounded-lg text-sm font-bold tracking-wider uppercase flex items-center justify-center gap-2 hover:brightness-110 transition-all active:scale-[0.98]">
+                            <span class="material-symbols-outlined text-lg">send</span>
+                            Send
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- /quote-output -->
+        </div><!-- /view-generator -->
 
     </main>
 
     <!-- ═══════════════════════════════════════ -->
     <!-- FOOTER                                 -->
     <!-- ═══════════════════════════════════════ -->
-    <footer class="bg-slate-800 text-slate-300">
-        <div class="max-w-[1280px] mx-auto w-full px-6 lg:px-8 py-14">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-                <!-- Brand Column -->
-                <div class="md:col-span-2">
-                    <div class="text-xl font-bold text-white mb-4 font-['Work_Sans'] tracking-tight">TCIM</div>
-                    <p class="font-['Work_Sans'] font-semibold text-white text-lg mb-3 tracking-tight">Dedicated Broker Support</p>
-                    <p class="text-slate-400 text-sm max-w-sm mb-6 leading-relaxed">Our team provides prompt response times for all
-                        bind requests and technical inquiries. Reach out to get started.</p>
-                    <div class="flex gap-4">
-                        <a class="text-slate-500 hover:text-secondary transition-colors" href="mailto:info@tcim.ca" aria-label="Email">
-                            <span class="material-symbols-outlined">mail</span>
-                        </a>
-                        <a class="text-slate-500 hover:text-secondary transition-colors" href="tel:2049258276" aria-label="Call">
-                            <span class="material-symbols-outlined">call</span>
-                        </a>
-                    </div>
-                </div>
-                <!-- Resources Column -->
-                <div>
-                    <p class="font-label-caps text-label-caps text-slate-400 mb-5 uppercase">Resources</p>
-                    <ul class="space-y-3">
-                        <li><a class="text-sm text-slate-400 hover:text-white transition-colors" href="#quote-section">Get a Quote</a></li>
-                        <li><a class="text-sm text-slate-400 hover:text-white transition-colors" href="https://www.tcim.ca/privacy-complaints">Privacy & Complaints</a></li>
-                    </ul>
-                </div>
-                <!-- Contact Column -->
-                <div>
-                    <p class="font-label-caps text-label-caps text-slate-400 mb-5 uppercase">Contact</p>
-                    <ul class="space-y-3">
-                        <li class="text-sm text-slate-400 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-base">call</span>
-                            <a href="tel:2049258276" class="hover:text-white transition-colors">204-925-8276</a>
-                        </li>
-                        <li class="text-sm text-slate-400 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-base">mail</span>
-                            <a href="mailto:info@tcim.ca" class="hover:text-white transition-colors">info@tcim.ca</a>
-                        </li>
-                        <li class="text-sm text-slate-400 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-base">send</span>
-                            <a href="mailto:newsubmission@tcim.ca" class="hover:text-white transition-colors">newsubmission@tcim.ca</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="pt-8 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-xs text-slate-500">
-                    © 2026 Trans Canada Insurance Marketing Inc. All rights reserved.
-                </p>
-                <div class="flex gap-3 items-center">
-                    <span class="material-symbols-outlined text-slate-600 text-lg">shield</span>
-                    <span class="material-symbols-outlined text-slate-600 text-lg">policy</span>
-                </div>
+    <footer class="bg-slate-800 text-slate-400 relative z-10 mt-auto no-print">
+        <div class="max-w-[1360px] mx-auto px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <p class="text-xs">© 2026 Trans Canada Insurance Marketing Inc. All rights reserved.</p>
+            <div class="flex items-center gap-4 text-xs">
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">call</span> 204-925-8276</span>
+                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">mail</span> info@tcim.ca</span>
             </div>
         </div>
     </footer>
 
     <!-- ═══════════════════════════════════════ -->
-    <!-- SCRIPTS                                -->
+    <!-- TOAST NOTIFICATION                     -->
+    <!-- ═══════════════════════════════════════ -->
+    <div id="toast" class="toast bg-primary-container text-white px-5 py-3 rounded-lg shadow-xl flex items-center gap-3">
+        <span class="material-symbols-outlined text-lg" id="toast-icon">check_circle</span>
+        <span id="toast-msg" class="text-sm font-medium"></span>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- APPLICATION LOGIC                      -->
     <!-- ═══════════════════════════════════════ -->
     <script>
-        // ── Quote Calculator Logic ──
-        const biPremiumInput = document.getElementById('bi-premium');
-        const indemnitySelect = document.getElementById('indemnity-period');
-        const calcButton = document.getElementById('btn-calculate');
-        const resultDiv = document.getElementById('quote-result');
-        const calculatedPremium = document.getElementById('calculated-premium');
+    // ─── Constants ───
+    const STORAGE_KEY = 'incomeguard_attachments';
+    const FACTORS = {
+        18: { factor: 0.375, label: '12–18 Months' },
+        24: { factor: 0.750, label: '12–24 Months' },
+        30: { factor: 1.025, label: '12–30 Months' },
+        36: { factor: 1.300, label: '12–36 Months' },
+        42: { factor: 1.500, label: '12–42 Months' },
+        48: { factor: 1.700, label: '12–48 Months' },
+    };
+    const SERVICE_FEE_RATE = 0.025;
+    const SERVICE_FEE_MIN = 10.75;
+    const SERVICE_FEE_MAX = 125.00;
 
-        function formatCurrency(num) {
-            return new Intl.NumberFormat('en-CA', {
-                style: 'currency',
-                currency: 'CAD',
-                minimumFractionDigits: 2,
-            }).format(num);
-        }
+    // ─── Utility: Currency ───
+    function fmt(n) {
+        return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 2 }).format(n);
+    }
+    function parseNum(v) {
+        return parseFloat(String(v).replace(/[^0-9.]/g, '')) || 0;
+    }
+    function calcServiceFee(premium) {
+        let fee = premium * SERVICE_FEE_RATE;
+        return Math.min(Math.max(fee, SERVICE_FEE_MIN), SERVICE_FEE_MAX);
+    }
 
-        function parseCurrencyInput(value) {
-            return parseFloat(value.replace(/[^0-9.]/g, '')) || 0;
-        }
-
-        // Format input as user types
-        biPremiumInput.addEventListener('input', function () {
+    // ─── Currency Input Formatting ───
+    document.querySelectorAll('.currency-input').forEach(input => {
+        input.addEventListener('input', function () {
             let raw = this.value.replace(/[^0-9.]/g, '');
             if (raw) {
                 let parts = raw.split('.');
@@ -621,60 +516,346 @@
                 this.value = parts.join('.');
             }
         });
+    });
 
-        function calculatePremium() {
-            const primary = parseCurrencyInput(biPremiumInput.value);
-            const multiplier = parseFloat(indemnitySelect.value) / 100;
+    // ─── View Management ───
+    let currentQuoteData = null;
 
-            if (primary <= 0) {
-                biPremiumInput.focus();
-                biPremiumInput.classList.add('border-red-400');
-                setTimeout(() => biPremiumInput.classList.remove('border-red-400'), 1500);
-                return;
-            }
+    function showView(name) {
+        document.getElementById('view-dashboard').classList.add('hidden');
+        document.getElementById('view-generator').classList.add('hidden');
+        const target = document.getElementById(`view-${name}`);
+        target.classList.remove('hidden');
+        // Re-trigger animation
+        target.classList.remove('view-enter');
+        void target.offsetWidth;
+        target.classList.add('view-enter');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (name === 'dashboard') renderDashboard();
+    }
 
-            const excess = primary * multiplier;
-            calculatedPremium.textContent = formatCurrency(excess);
-            resultDiv.classList.remove('hidden');
-            resultDiv.classList.add('pulse-glow');
-            setTimeout(() => resultDiv.classList.remove('pulse-glow'), 4000);
+    // ─── Storage ───
+    function getAttachments() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+        catch { return []; }
+    }
+    function saveAttachment(data) {
+        const all = getAttachments();
+        all.unshift(data);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+    }
+    function deleteAttachment(idx) {
+        const all = getAttachments();
+        all.splice(idx, 1);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+        renderDashboard();
+    }
+
+    // ─── Dashboard Rendering ───
+    function renderDashboard() {
+        const all = getAttachments();
+        const tbody = document.getElementById('attachments-tbody');
+        const table = document.getElementById('attachments-table');
+        const empty = document.getElementById('empty-state');
+
+        // Stats
+        document.getElementById('stat-total').textContent = all.length;
+        const now = new Date();
+        const thisMonth = all.filter(a => {
+            const d = new Date(a.date);
+            return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+        });
+        document.getElementById('stat-month').textContent = thisMonth.length;
+        const totalPrem = all.reduce((s, a) => s + (a.rows?.[0]?.extensionPremium || 0), 0);
+        document.getElementById('stat-premium').textContent = fmt(totalPrem);
+        if (all.length > 0) {
+            const avgMonths = Math.round(all.reduce((s, a) => s + (a.rows?.length || 0), 0) / all.length);
+            document.getElementById('stat-avg').textContent = `${avgMonths} option${avgMonths !== 1 ? 's' : ''}`;
+        } else {
+            document.getElementById('stat-avg').textContent = '—';
         }
 
-        calcButton.addEventListener('click', calculatePremium);
+        if (all.length === 0) {
+            table.classList.add('hidden');
+            empty.classList.remove('hidden');
+            return;
+        }
+        table.classList.remove('hidden');
+        empty.classList.add('hidden');
 
-        // Allow Enter key to calculate
-        biPremiumInput.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') calculatePremium();
+        tbody.innerHTML = all.map((a, i) => `
+            <tr class="row-hover">
+                <td class="px-6 py-3 text-sm font-medium text-primary">${esc(a.clientName)}</td>
+                <td class="px-6 py-3 text-sm text-on-surface-variant">${esc(a.risk)}</td>
+                <td class="px-6 py-3 text-sm text-on-surface-variant">${new Date(a.date).toLocaleDateString('en-CA')}</td>
+                <td class="px-6 py-3 text-sm font-medium text-secondary">${fmt(a.rows?.[0]?.total || 0)}</td>
+                <td class="px-6 py-3 text-right">
+                    <button onclick="openAttachment(${i})" class="text-secondary hover:underline text-xs font-bold uppercase tracking-wider mr-3">Open</button>
+                    <button onclick="if(confirm('Delete this attachment?')) deleteAttachment(${i})" class="text-error/60 hover:text-error text-xs font-bold uppercase tracking-wider">Delete</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    function openAttachment(idx) {
+        const all = getAttachments();
+        currentQuoteData = all[idx];
+        showView('generator');
+        // Fill form
+        document.getElementById('client-name').value = currentQuoteData.clientName;
+        document.getElementById('risk-desc').value = currentQuoteData.risk;
+        document.getElementById('ibc-code').value = currentQuoteData.ibcCode;
+        document.getElementById('insured-limit').value = Number(currentQuoteData.insuredLimit).toLocaleString('en-CA');
+        document.getElementById('bi-premium').value = Number(currentQuoteData.biPremium).toLocaleString('en-CA');
+        // Re-render output
+        renderOutput(currentQuoteData);
+    }
+
+    // ─── Quote Generation ───
+    function generateQuote() {
+        const clientName = document.getElementById('client-name').value.trim();
+        const risk = document.getElementById('risk-desc').value.trim();
+        const ibcCode = document.getElementById('ibc-code').value.trim();
+        const insuredLimit = parseNum(document.getElementById('insured-limit').value);
+        const biPremium = parseNum(document.getElementById('bi-premium').value);
+
+        // Validation
+        if (!clientName || !risk || !ibcCode) {
+            showToast('Please fill in all Client Context fields.', 'error');
+            return;
+        }
+        if (insuredLimit <= 0 || biPremium <= 0) {
+            showToast('Please enter valid Primary Policy values.', 'error');
+            return;
+        }
+
+        const checkedPeriods = Array.from(document.querySelectorAll('input[name="period"]:checked'));
+        if (checkedPeriods.length === 0) {
+            showToast('Please select at least one extension period.', 'error');
+            return;
+        }
+
+        // Build rows
+        const rows = checkedPeriods.map(cb => {
+            const months = parseInt(cb.value);
+            const info = FACTORS[months];
+            const extensionPremium = biPremium * info.factor;
+            const serviceFee = calcServiceFee(extensionPremium);
+            const total = extensionPremium + serviceFee;
+            return {
+                months,
+                label: info.label,
+                factorPct: (info.factor * 100).toFixed(1) + '%',
+                extensionPremium,
+                serviceFee,
+                total,
+            };
         });
 
-        // Live recalculate when changing indemnity period
-        indemnitySelect.addEventListener('change', function () {
-            if (parseCurrencyInput(biPremiumInput.value) > 0) {
-                calculatePremium();
+        const data = {
+            clientName,
+            risk,
+            ibcCode,
+            insuredLimit,
+            biPremium,
+            rows,
+            date: new Date().toISOString(),
+        };
+
+        currentQuoteData = data;
+        saveAttachment(data);
+        renderOutput(data);
+        showToast('Attachment generated and saved.');
+    }
+
+    function renderOutput(data) {
+        document.getElementById('quote-output').classList.remove('hidden');
+        document.getElementById('output-client-name').textContent = data.clientName;
+        document.getElementById('output-risk').textContent = data.risk;
+        document.getElementById('output-ibc').textContent = data.ibcCode;
+        document.getElementById('output-limit').textContent = fmt(data.insuredLimit);
+        document.getElementById('output-primary').textContent = fmt(data.biPremium);
+
+        const tbody = document.getElementById('output-tbody');
+        tbody.innerHTML = data.rows.map(r => `
+            <tr>
+                <td class="font-medium">${r.label}</td>
+                <td>${r.factorPct}</td>
+                <td>${fmt(r.extensionPremium)}</td>
+                <td>${fmt(r.serviceFee)}</td>
+                <td class="text-secondary font-semibold">${fmt(r.total)}</td>
+            </tr>
+        `).join('');
+
+        // Pre-fill email
+        document.getElementById('email-subject').value = `IncomeGuard Extension Options – ${data.clientName}`;
+        document.getElementById('email-body').value =
+`Hi,
+
+Please find attached optional IncomeGuard Business Interruption extension options to extend your client's existing 12-month BI coverage.
+
+Client: ${data.clientName}
+Risk: ${data.risk}
+IBC Code: ${data.ibcCode}
+
+This can be included alongside your quote. Let me know if you'd like to discuss.
+
+Best regards,
+TCIM IncomeGuard`;
+
+        // Scroll to output
+        setTimeout(() => {
+            document.getElementById('quote-output').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+
+    // ─── PDF Generation ───
+    function downloadPDF() {
+        if (!currentQuoteData) return;
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'mm', format: 'letter' });
+        const d = currentQuoteData;
+        const pw = doc.internal.pageSize.getWidth();
+        const margin = 20;
+        let y = 20;
+
+        // Helper
+        const addText = (text, x, yy, opts = {}) => {
+            doc.setFontSize(opts.size || 10);
+            doc.setFont('helvetica', opts.style || 'normal');
+            doc.setTextColor(opts.color || '#1b1c1c');
+            doc.text(text, x, yy, opts.align ? { align: opts.align } : undefined);
+        };
+
+        // Header bar
+        doc.setFillColor(0, 43, 73); // primary-container
+        doc.rect(0, 0, pw, 30, 'F');
+        addText('TCIM', margin, 14, { size: 16, style: 'bold', color: '#ffffff' });
+        addText('IncomeGuard', margin + 22, 14, { size: 10, color: '#7293b6' });
+        addText(new Date(d.date).toLocaleDateString('en-CA'), pw - margin, 14, { size: 9, color: '#7293b6', align: 'right' });
+        y = 30;
+
+        // Title
+        y += 12;
+        addText('Optional Extended Business Interruption Protection', margin, y, { size: 16, style: 'bold', color: '#002b49' });
+        y += 8;
+        addText(d.clientName, margin, y, { size: 12, style: 'bold', color: '#006970' });
+
+        // Context details
+        y += 10;
+        doc.setDrawColor(200, 200, 210);
+        doc.line(margin, y, pw - margin, y);
+        y += 7;
+        addText(`Risk / Description:  ${d.risk}`, margin, y, { size: 9 });
+        y += 5;
+        addText(`IBC Code:  ${d.ibcCode}`, margin, y, { size: 9 });
+        y += 5;
+        addText(`Insured Limit:  ${fmt(d.insuredLimit)}`, margin, y, { size: 9 });
+        y += 5;
+        addText(`12-Month Primary BI Premium:  ${fmt(d.biPremium)}`, margin, y, { size: 9 });
+
+        // Positioning line
+        y += 10;
+        doc.setFillColor(245, 243, 243);
+        doc.roundedRect(margin, y - 3, pw - margin * 2, 14, 2, 2, 'F');
+        addText('In addition to the 12-month Business Interruption coverage provided in your primary policy,', margin + 4, y + 2, { size: 8, style: 'italic', color: '#42474d' });
+        addText('the following optional extension periods are available.', margin + 4, y + 7, { size: 8, style: 'italic', color: '#42474d' });
+        y += 16;
+
+        // Clarity line
+        addText('This option is designed to attach only after the initial 12-month indemnity period.', margin, y, { size: 8, style: 'italic', color: '#42474d' });
+        y += 10;
+
+        // Table header
+        const colX = [margin, margin + 45, margin + 70, margin + 105, margin + 140];
+        doc.setFillColor(0, 43, 73);
+        doc.rect(margin, y - 1, pw - margin * 2, 8, 'F');
+        const headers = ['Extension Period', 'Factor', 'Extension Premium', 'Service Fee (2.5%)', 'Total'];
+        headers.forEach((h, i) => {
+            addText(h, colX[i], y + 4, { size: 7, style: 'bold', color: '#ffffff' });
+        });
+        y += 10;
+
+        // Table rows
+        d.rows.forEach((r, i) => {
+            if (i % 2 === 0) {
+                doc.setFillColor(250, 249, 248);
+                doc.rect(margin, y - 3, pw - margin * 2, 8, 'F');
             }
+            addText(r.label, colX[0], y + 2, { size: 9, style: 'bold' });
+            addText(r.factorPct, colX[1], y + 2, { size: 9 });
+            addText(fmt(r.extensionPremium), colX[2], y + 2, { size: 9 });
+            addText(fmt(r.serviceFee), colX[3], y + 2, { size: 9 });
+            addText(fmt(r.total), colX[4], y + 2, { size: 9, style: 'bold', color: '#006970' });
+            y += 8;
         });
 
-        // ── Mobile Menu Toggle ──
-        const menuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        // Bottom line
+        y += 2;
+        doc.setDrawColor(0, 43, 73);
+        doc.line(margin, y, pw - margin, y);
 
-        // ── Scroll Reveal Animation ──
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
+        // Service fee note
+        y += 8;
+        addText('Service Fee: 2.5% of extension premium (min. $10.75, max. $125.00)', margin, y, { size: 7, color: '#73777e' });
+        y += 4;
+        addText('All premiums are indicative and subject to final underwriting review.', margin, y, { size: 7, color: '#73777e' });
 
-        revealElements.forEach(el => revealObserver.observe(el));
+        // Footer
+        const fY = doc.internal.pageSize.getHeight() - 15;
+        doc.setDrawColor(200, 200, 210);
+        doc.line(margin, fY - 5, pw - margin, fY - 5);
+        addText('Trans Canada Insurance Marketing Inc.  |  204-925-8276  |  info@tcim.ca  |  newsubmission@tcim.ca', margin, fY, { size: 7, color: '#73777e' });
+        addText('Confidential', pw - margin, fY, { size: 7, color: '#73777e', align: 'right' });
+
+        // Save
+        const fileName = `IncomeGuard_${d.clientName.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date(d.date).toISOString().slice(0, 10)}.pdf`;
+        doc.save(fileName);
+        showToast('PDF downloaded successfully.');
+    }
+
+    // ─── Email (mailto fallback) ───
+    function sendEmail() {
+        const to = document.getElementById('email-to').value.trim();
+        const subject = encodeURIComponent(document.getElementById('email-subject').value);
+        const body = encodeURIComponent(document.getElementById('email-body').value);
+
+        if (!to) {
+            showToast('Please enter a recipient email address.', 'error');
+            return;
+        }
+
+        // Store auto-include preference
+        const autoInclude = document.getElementById('auto-include').checked;
+        localStorage.setItem('incomeguard_auto_include', autoInclude);
+
+        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+        showToast('Opening email client...');
+    }
+
+    // ─── Toast ───
+    function showToast(msg, type = 'success') {
+        const toast = document.getElementById('toast');
+        const icon = document.getElementById('toast-icon');
+        document.getElementById('toast-msg').textContent = msg;
+
+        if (type === 'error') {
+            toast.className = 'toast bg-error text-white px-5 py-3 rounded-lg shadow-xl flex items-center gap-3';
+            icon.textContent = 'error';
+        } else {
+            toast.className = 'toast bg-primary-container text-white px-5 py-3 rounded-lg shadow-xl flex items-center gap-3';
+            icon.textContent = 'check_circle';
+        }
+
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // ─── Init ───
+    renderDashboard();
     </script>
 
 </body>
-
 </html>
