@@ -8,6 +8,7 @@
     <meta name="description" content="IncomeGuard MGA Underwriter Tool — Generate excess BI quote attachments for brokers. Trans Canada Insurance Marketing." />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="jspdf.min.js"></script>
+    <script src="ga-logo-data.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <script>
@@ -730,8 +731,11 @@ TCIM IncomeGuard`;
         // Header bar
         doc.setFillColor(0, 43, 73); // primary-container
         doc.rect(0, 0, pw, 30, 'F');
-        addText('TCIM', margin, 14, { size: 16, style: 'bold', color: '#ffffff' });
-        addText('IncomeGuard', margin + 22, 14, { size: 10, color: '#7293b6' });
+        // GA Logo (right side of header)
+        if (typeof GA_LOGO_BASE64 !== 'undefined') {
+            doc.addImage(GA_LOGO_BASE64, 'PNG', margin, 4, 45, 22);
+        }
+        addText('IncomeGuard', margin, 28, { size: 7, color: '#7293b6' });
         addText(new Date(d.date).toLocaleDateString('en-CA'), pw - margin, 14, { size: 9, color: '#7293b6', align: 'right' });
         y = 30;
 
@@ -888,8 +892,11 @@ TCIM IncomeGuard`;
 
         doc.setFillColor(0, 43, 73);
         doc.rect(0, 0, pw, 30, 'F');
-        addText('TCIM', margin, 14, { size: 16, style: 'bold', color: '#ffffff' });
-        addText('IncomeGuard', margin + 22, 14, { size: 10, color: '#7293b6' });
+        // GA Logo (right side of header)
+        if (typeof GA_LOGO_BASE64 !== 'undefined') {
+            doc.addImage(GA_LOGO_BASE64, 'PNG', margin, 4, 45, 22);
+        }
+        addText('IncomeGuard', margin, 28, { size: 7, color: '#7293b6' });
         addText(new Date(d.date).toLocaleDateString('en-CA'), pw - margin, 14, { size: 9, color: '#7293b6', align: 'right' });
         y = 30;
         // Title
