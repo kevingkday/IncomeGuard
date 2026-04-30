@@ -737,15 +737,78 @@ TCIM IncomeGuard`;
 
         // Title
         y += 12;
-        addText('Optional Extended Business Interruption Protection', margin, y, { size: 16, style: 'bold', color: '#002b49' });
-        y += 8;
-        addText(d.clientName, margin, y, { size: 12, style: 'bold', color: '#006970' });
-
-        // Context details
+        addText('Optional Extended Business Interruption Protection', margin, y, { size: 14, style: 'bold', color: '#002b49' });
         y += 10;
+
+        // Greeting
+        addText(`Hello ${d.clientName},`, margin, y, { size: 10, style: 'normal', color: '#1b1c1c' });
+        y += 8;
+
+        // Cover letter body - with word wrap
+        const maxW = pw - margin * 2;
+        const bodyLines = [
+            'As part of your insurance program, your policy includes Business Interruption coverage, which is designed to protect your income if your business is unable to operate following an insured loss (such as a fire or major damage).',
+            '',
+            'Most standard policies provide coverage for a limited period (typically 12 months). However, in many real-world scenarios, full recovery can take significantly longer due to factors such as permitting delays, construction timelines, supply chain disruptions, and the time required to return to normal operations.',
+            '',
+            'To address this potential gap, we are pleased to provide an option to extend your Business Interruption protection through IncomeGuard.',
+        ];
+
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor('#42474d');
+        bodyLines.forEach(line => {
+            if (line === '') { y += 4; return; }
+            const wrapped = doc.splitTextToSize(line, maxW);
+            doc.text(wrapped, margin, y);
+            y += wrapped.length * 4.5;
+        });
+
+        // "What this option provides" heading
+        y += 4;
+        addText('What this option provides:', margin, y, { size: 10, style: 'bold', color: '#002b49' });
+        y += 7;
+
+        // Bullet points
+        const bullets = [
+            'Extends your income protection beyond the standard policy period',
+            'Helps ensure your business has sufficient time to fully recover',
+            'Provides continuity and financial stability during prolonged interruptions',
+        ];
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor('#42474d');
+        bullets.forEach(b => {
+            addText('•', margin + 2, y, { size: 9, color: '#006970' });
+            const wrapped = doc.splitTextToSize(b, maxW - 8);
+            doc.text(wrapped, margin + 7, y);
+            y += wrapped.length * 4.5 + 1;
+        });
+
+        // Closing paragraph
+        y += 3;
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor('#42474d');
+        const closingLines = [
+            'This optional coverage is designed to sit in excess of your existing policy, activating once the standard indemnity period has been exhausted.',
+            '',
+            'Please find below a summary of available extension options and associated premiums for your consideration.',
+        ];
+        closingLines.forEach(line => {
+            if (line === '') { y += 4; return; }
+            const wrapped = doc.splitTextToSize(line, maxW);
+            doc.text(wrapped, margin, y);
+            y += wrapped.length * 4.5;
+        });
+
+        // Divider before quote details
+        y += 6;
         doc.setDrawColor(200, 200, 210);
         doc.line(margin, y, pw - margin, y);
         y += 7;
+
+        // Context details
         addText(`Risk / Description:  ${d.risk}`, margin, y, { size: 9 });
         y += 5;
         addText(`IBC Code:  ${d.ibcCode}`, margin, y, { size: 9 });
@@ -753,18 +816,7 @@ TCIM IncomeGuard`;
         addText(`Insured Limit:  ${fmt(d.insuredLimit)}`, margin, y, { size: 9 });
         y += 5;
         addText(`12-Month Primary BI Premium:  ${fmt(d.biPremium)}`, margin, y, { size: 9 });
-
-        // Positioning line
-        y += 10;
-        doc.setFillColor(245, 243, 243);
-        doc.roundedRect(margin, y - 3, pw - margin * 2, 14, 2, 2, 'F');
-        addText('In addition to the 12-month Business Interruption coverage provided in your primary policy,', margin + 4, y + 2, { size: 8, style: 'italic', color: '#42474d' });
-        addText('the following optional extension periods are available.', margin + 4, y + 7, { size: 8, style: 'italic', color: '#42474d' });
-        y += 16;
-
-        // Clarity line
-        addText('This option is designed to attach only after the initial 12-month indemnity period.', margin, y, { size: 8, style: 'italic', color: '#42474d' });
-        y += 10;
+        y += 8;
 
         // Table header
         const colX = [margin, margin + 50, margin + 95, margin + 140];
@@ -840,16 +892,80 @@ TCIM IncomeGuard`;
         addText('IncomeGuard', margin + 22, 14, { size: 10, color: '#7293b6' });
         addText(new Date(d.date).toLocaleDateString('en-CA'), pw - margin, 14, { size: 9, color: '#7293b6', align: 'right' });
         y = 30;
-
+        // Title
         y += 12;
-        addText('Optional Extended Business Interruption Protection', margin, y, { size: 16, style: 'bold', color: '#002b49' });
-        y += 8;
-        addText(d.clientName, margin, y, { size: 12, style: 'bold', color: '#006970' });
-
+        addText('Optional Extended Business Interruption Protection', margin, y, { size: 14, style: 'bold', color: '#002b49' });
         y += 10;
+
+        // Greeting
+        addText(`Hello ${d.clientName},`, margin, y, { size: 10, style: 'normal', color: '#1b1c1c' });
+        y += 8;
+
+        // Cover letter body - with word wrap
+        const maxW = pw - margin * 2;
+        const bodyLines = [
+            'As part of your insurance program, your policy includes Business Interruption coverage, which is designed to protect your income if your business is unable to operate following an insured loss (such as a fire or major damage).',
+            '',
+            'Most standard policies provide coverage for a limited period (typically 12 months). However, in many real-world scenarios, full recovery can take significantly longer due to factors such as permitting delays, construction timelines, supply chain disruptions, and the time required to return to normal operations.',
+            '',
+            'To address this potential gap, we are pleased to provide an option to extend your Business Interruption protection through IncomeGuard.',
+        ];
+
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor('#42474d');
+        bodyLines.forEach(line => {
+            if (line === '') { y += 4; return; }
+            const wrapped = doc.splitTextToSize(line, maxW);
+            doc.text(wrapped, margin, y);
+            y += wrapped.length * 4.5;
+        });
+
+        // "What this option provides" heading
+        y += 4;
+        addText('What this option provides:', margin, y, { size: 10, style: 'bold', color: '#002b49' });
+        y += 7;
+
+        // Bullet points
+        const bullets = [
+            'Extends your income protection beyond the standard policy period',
+            'Helps ensure your business has sufficient time to fully recover',
+            'Provides continuity and financial stability during prolonged interruptions',
+        ];
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor('#42474d');
+        bullets.forEach(b => {
+            addText('•', margin + 2, y, { size: 9, color: '#006970' });
+            const wrapped = doc.splitTextToSize(b, maxW - 8);
+            doc.text(wrapped, margin + 7, y);
+            y += wrapped.length * 4.5 + 1;
+        });
+
+        // Closing paragraph
+        y += 3;
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor('#42474d');
+        const closingLines = [
+            'This optional coverage is designed to sit in excess of your existing policy, activating once the standard indemnity period has been exhausted.',
+            '',
+            'Please find below a summary of available extension options and associated premiums for your consideration.',
+        ];
+        closingLines.forEach(line => {
+            if (line === '') { y += 4; return; }
+            const wrapped = doc.splitTextToSize(line, maxW);
+            doc.text(wrapped, margin, y);
+            y += wrapped.length * 4.5;
+        });
+
+        // Divider before quote details
+        y += 6;
         doc.setDrawColor(200, 200, 210);
         doc.line(margin, y, pw - margin, y);
         y += 7;
+
+        // Context details
         addText(`Risk / Description:  ${d.risk}`, margin, y, { size: 9 });
         y += 5;
         addText(`IBC Code:  ${d.ibcCode}`, margin, y, { size: 9 });
@@ -857,16 +973,7 @@ TCIM IncomeGuard`;
         addText(`Insured Limit:  ${fmt(d.insuredLimit)}`, margin, y, { size: 9 });
         y += 5;
         addText(`12-Month Primary BI Premium:  ${fmt(d.biPremium)}`, margin, y, { size: 9 });
-
-        y += 10;
-        doc.setFillColor(245, 243, 243);
-        doc.roundedRect(margin, y - 3, pw - margin * 2, 14, 2, 2, 'F');
-        addText('In addition to the 12-month Business Interruption coverage provided in your primary policy,', margin + 4, y + 2, { size: 8, style: 'italic', color: '#42474d' });
-        addText('the following optional extension periods are available.', margin + 4, y + 7, { size: 8, style: 'italic', color: '#42474d' });
-        y += 16;
-
-        addText('This option is designed to attach only after the initial 12-month indemnity period.', margin, y, { size: 8, style: 'italic', color: '#42474d' });
-        y += 10;
+        y += 8;
 
         const colX = [margin, margin + 50, margin + 95, margin + 140];
         doc.setFillColor(0, 43, 73);
