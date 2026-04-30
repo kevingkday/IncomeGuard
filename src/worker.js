@@ -73,7 +73,7 @@ async function handleSendEmail(request, env) {
         }
 
         // Build SendGrid payload
-        const fromEmail = env.SENDGRID_FROM_EMAIL || 'kevin@oceanfalls.com';
+        const fromEmail = env.SENDGRID_FROM_EMAIL || 'kevin@captive8.ai';
         const fromName = env.SENDGRID_FROM_NAME || 'TCIM IncomeGuard';
 
         const sgPayload = {
