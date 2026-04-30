@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "incomeguard",
   "compatibility_date": "2026-04-23",
+  "main": "src/worker.js",
   "assets": {
     "directory": ".",
     "binding": "ASSETS"
