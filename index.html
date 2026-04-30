@@ -388,7 +388,6 @@
                             <thead>
                                 <tr>
                                     <th>Extension Period</th>
-                                    <th>Factor</th>
                                     <th>Extension Premium</th>
                                     <th>Service Fee (2.5%)</th>
                                     <th>Total</th>
@@ -682,7 +681,6 @@
         tbody.innerHTML = data.rows.map(r => `
             <tr>
                 <td class="font-medium">${r.label}</td>
-                <td>${r.factorPct}</td>
                 <td>${fmt(r.extensionPremium)}</td>
                 <td>${fmt(r.serviceFee)}</td>
                 <td class="text-secondary font-semibold">${fmt(r.total)}</td>
@@ -769,10 +767,10 @@ TCIM IncomeGuard`;
         y += 10;
 
         // Table header
-        const colX = [margin, margin + 45, margin + 70, margin + 105, margin + 140];
+        const colX = [margin, margin + 50, margin + 95, margin + 140];
         doc.setFillColor(0, 43, 73);
         doc.rect(margin, y - 1, pw - margin * 2, 8, 'F');
-        const headers = ['Extension Period', 'Factor', 'Extension Premium', 'Service Fee (2.5%)', 'Total'];
+        const headers = ['Extension Period', 'Extension Premium', 'Service Fee (2.5%)', 'Total'];
         headers.forEach((h, i) => {
             addText(h, colX[i], y + 4, { size: 7, style: 'bold', color: '#ffffff' });
         });
@@ -785,10 +783,9 @@ TCIM IncomeGuard`;
                 doc.rect(margin, y - 3, pw - margin * 2, 8, 'F');
             }
             addText(r.label, colX[0], y + 2, { size: 9, style: 'bold' });
-            addText(r.factorPct, colX[1], y + 2, { size: 9 });
-            addText(fmt(r.extensionPremium), colX[2], y + 2, { size: 9 });
-            addText(fmt(r.serviceFee), colX[3], y + 2, { size: 9 });
-            addText(fmt(r.total), colX[4], y + 2, { size: 9, style: 'bold', color: '#006970' });
+            addText(fmt(r.extensionPremium), colX[1], y + 2, { size: 9 });
+            addText(fmt(r.serviceFee), colX[2], y + 2, { size: 9 });
+            addText(fmt(r.total), colX[3], y + 2, { size: 9, style: 'bold', color: '#006970' });
             y += 8;
         });
 
@@ -871,10 +868,10 @@ TCIM IncomeGuard`;
         addText('This option is designed to attach only after the initial 12-month indemnity period.', margin, y, { size: 8, style: 'italic', color: '#42474d' });
         y += 10;
 
-        const colX = [margin, margin + 45, margin + 70, margin + 105, margin + 140];
+        const colX = [margin, margin + 50, margin + 95, margin + 140];
         doc.setFillColor(0, 43, 73);
         doc.rect(margin, y - 1, pw - margin * 2, 8, 'F');
-        const headers = ['Extension Period', 'Factor', 'Extension Premium', 'Service Fee (2.5%)', 'Total'];
+        const headers = ['Extension Period', 'Extension Premium', 'Service Fee (2.5%)', 'Total'];
         headers.forEach((h, i) => {
             addText(h, colX[i], y + 4, { size: 7, style: 'bold', color: '#ffffff' });
         });
@@ -886,10 +883,9 @@ TCIM IncomeGuard`;
                 doc.rect(margin, y - 3, pw - margin * 2, 8, 'F');
             }
             addText(r.label, colX[0], y + 2, { size: 9, style: 'bold' });
-            addText(r.factorPct, colX[1], y + 2, { size: 9 });
-            addText(fmt(r.extensionPremium), colX[2], y + 2, { size: 9 });
-            addText(fmt(r.serviceFee), colX[3], y + 2, { size: 9 });
-            addText(fmt(r.total), colX[4], y + 2, { size: 9, style: 'bold', color: '#006970' });
+            addText(fmt(r.extensionPremium), colX[1], y + 2, { size: 9 });
+            addText(fmt(r.serviceFee), colX[2], y + 2, { size: 9 });
+            addText(fmt(r.total), colX[3], y + 2, { size: 9, style: 'bold', color: '#006970' });
             y += 8;
         });
 
