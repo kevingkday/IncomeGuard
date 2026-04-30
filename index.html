@@ -736,7 +736,9 @@ TCIM IncomeGuard`;
             doc.addImage(GA_LOGO_BASE64, 'PNG', margin, 4, 45, 22);
         }
         addText('IncomeGuard', margin, 28, { size: 7, color: '#7293b6' });
-        addText(new Date(d.date).toLocaleDateString('en-CA'), pw - margin, 14, { size: 9, color: '#7293b6', align: 'right' });
+        const dateStr = new Date(d.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        addText('DATE', pw - margin, 10, { size: 6, style: 'bold', color: '#7293b6', align: 'right' });
+        addText(dateStr, pw - margin, 16, { size: 10, style: 'bold', color: '#ffffff', align: 'right' });
         y = 30;
 
         // Title
@@ -897,7 +899,9 @@ TCIM IncomeGuard`;
             doc.addImage(GA_LOGO_BASE64, 'PNG', margin, 4, 45, 22);
         }
         addText('IncomeGuard', margin, 28, { size: 7, color: '#7293b6' });
-        addText(new Date(d.date).toLocaleDateString('en-CA'), pw - margin, 14, { size: 9, color: '#7293b6', align: 'right' });
+        const dateStr = new Date(d.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        addText('DATE', pw - margin, 10, { size: 6, style: 'bold', color: '#7293b6', align: 'right' });
+        addText(dateStr, pw - margin, 16, { size: 10, style: 'bold', color: '#ffffff', align: 'right' });
         y = 30;
         // Title
         y += 12;
