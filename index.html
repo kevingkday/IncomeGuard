@@ -819,6 +819,10 @@ TCIM IncomeGuard`;
     // ─── Email via SendGrid Worker ───
     function generatePDFBase64() {
         if (!currentQuoteData) return null;
+        if (typeof window.jspdf === 'undefined') {
+            showToast('PDF library is still loading. Please wait a moment and try again.', 'error');
+            return null;
+        }
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({ unit: 'mm', format: 'letter' });
         const d = currentQuoteData;
