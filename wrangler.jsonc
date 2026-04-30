@@ -3,7 +3,8 @@
   "name": "incomeguard",
   "compatibility_date": "2026-04-23",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS"
   },
   "observability": {
     "enabled": true

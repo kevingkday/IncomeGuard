@@ -3,3 +3,5 @@ node_modules
 .github
 package.json
 package-lock.json
+functions
+wrangler.jsonc

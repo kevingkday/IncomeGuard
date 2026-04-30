@@ -816,14 +816,117 @@ TCIM IncomeGuard`;
         showToast('PDF downloaded successfully.');
     }
 
-    // ─── Email (mailto fallback) ───
-    function sendEmail() {
+    // ─── Email via SendGrid Worker ───
+    function generatePDFBase64() {
+        if (!currentQuoteData) return null;
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'mm', format: 'letter' });
+        const d = currentQuoteData;
+        const pw = doc.internal.pageSize.getWidth();
+        const margin = 20;
+        let y = 20;
+
+        const addText = (text, x, yy, opts = {}) => {
+            doc.setFontSize(opts.size || 10);
+            doc.setFont('helvetica', opts.style || 'normal');
+            doc.setTextColor(opts.color || '#1b1c1c');
+            doc.text(text, x, yy, opts.align ? { align: opts.align } : undefined);
+        };
+
+        doc.setFillColor(0, 43, 73);
+        doc.rect(0, 0, pw, 30, 'F');
+        addText('TCIM', margin, 14, { size: 16, style: 'bold', color: '#ffffff' });
+        addText('IncomeGuard', margin + 22, 14, { size: 10, color: '#7293b6' });
+        addText(new Date(d.date).toLocaleDateString('en-CA'), pw - margin, 14, { size: 9, color: '#7293b6', align: 'right' });
+        y = 30;
+
+        y += 12;
+        addText('Optional Extended Business Interruption Protection', margin, y, { size: 16, style: 'bold', color: '#002b49' });
+        y += 8;
+        addText(d.clientName, margin, y, { size: 12, style: 'bold', color: '#006970' });
+
+        y += 10;
+        doc.setDrawColor(200, 200, 210);
+        doc.line(margin, y, pw - margin, y);
+        y += 7;
+        addText(`Risk / Description:  ${d.risk}`, margin, y, { size: 9 });
+        y += 5;
+        addText(`IBC Code:  ${d.ibcCode}`, margin, y, { size: 9 });
+        y += 5;
+        addText(`Insured Limit:  ${fmt(d.insuredLimit)}`, margin, y, { size: 9 });
+        y += 5;
+        addText(`12-Month Primary BI Premium:  ${fmt(d.biPremium)}`, margin, y, { size: 9 });
+
+        y += 10;
+        doc.setFillColor(245, 243, 243);
+        doc.roundedRect(margin, y - 3, pw - margin * 2, 14, 2, 2, 'F');
+        addText('In addition to the 12-month Business Interruption coverage provided in your primary policy,', margin + 4, y + 2, { size: 8, style: 'italic', color: '#42474d' });
+        addText('the following optional extension periods are available.', margin + 4, y + 7, { size: 8, style: 'italic', color: '#42474d' });
+        y += 16;
+
+        addText('This option is designed to attach only after the initial 12-month indemnity period.', margin, y, { size: 8, style: 'italic', color: '#42474d' });
+        y += 10;
+
+        const colX = [margin, margin + 45, margin + 70, margin + 105, margin + 140];
+        doc.setFillColor(0, 43, 73);
+        doc.rect(margin, y - 1, pw - margin * 2, 8, 'F');
+        const headers = ['Extension Period', 'Factor', 'Extension Premium', 'Service Fee (2.5%)', 'Total'];
+        headers.forEach((h, i) => {
+            addText(h, colX[i], y + 4, { size: 7, style: 'bold', color: '#ffffff' });
+        });
+        y += 10;
+
+        d.rows.forEach((r, i) => {
+            if (i % 2 === 0) {
+                doc.setFillColor(250, 249, 248);
+                doc.rect(margin, y - 3, pw - margin * 2, 8, 'F');
+            }
+            addText(r.label, colX[0], y + 2, { size: 9, style: 'bold' });
+            addText(r.factorPct, colX[1], y + 2, { size: 9 });
+            addText(fmt(r.extensionPremium), colX[2], y + 2, { size: 9 });
+            addText(fmt(r.serviceFee), colX[3], y + 2, { size: 9 });
+            addText(fmt(r.total), colX[4], y + 2, { size: 9, style: 'bold', color: '#006970' });
+            y += 8;
+        });
+
+        y += 2;
+        doc.setDrawColor(0, 43, 73);
+        doc.line(margin, y, pw - margin, y);
+
+        y += 8;
+        addText('Service Fee: 2.5% of extension premium (min. $10.75, max. $125.00)', margin, y, { size: 7, color: '#73777e' });
+        y += 4;
+        addText('All premiums are indicative and subject to final underwriting review.', margin, y, { size: 7, color: '#73777e' });
+
+        const fY = doc.internal.pageSize.getHeight() - 15;
+        doc.setDrawColor(200, 200, 210);
+        doc.line(margin, fY - 5, pw - margin, fY - 5);
+        addText('Trans Canada Insurance Marketing Inc.  |  204-925-8276  |  info@tcim.ca  |  newsubmission@tcim.ca', margin, fY, { size: 7, color: '#73777e' });
+        addText('Confidential', pw - margin, fY, { size: 7, color: '#73777e', align: 'right' });
+
+        // Return base64 string (strip the data:application/pdf;... prefix)
+        const pdfDataUri = doc.output('datauristring');
+        return pdfDataUri.split(',')[1];
+    }
+
+    function getPDFFilename() {
+        if (!currentQuoteData) return 'IncomeGuard_Quote.pdf';
+        const d = currentQuoteData;
+        return `IncomeGuard_${d.clientName.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date(d.date).toISOString().slice(0, 10)}.pdf`;
+    }
+
+    async function sendEmail() {
         const to = document.getElementById('email-to').value.trim();
-        const subject = encodeURIComponent(document.getElementById('email-subject').value);
-        const body = encodeURIComponent(document.getElementById('email-body').value);
+        const subject = document.getElementById('email-subject').value;
+        const textBody = document.getElementById('email-body').value;
 
         if (!to) {
             showToast('Please enter a recipient email address.', 'error');
+            return;
+        }
+
+        if (!currentQuoteData) {
+            showToast('No quote data available. Generate an attachment first.', 'error');
             return;
         }
 
@@ -831,8 +934,53 @@ TCIM IncomeGuard`;
         const autoInclude = document.getElementById('auto-include').checked;
         localStorage.setItem('incomeguard_auto_include', autoInclude);
 
-        window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-        showToast('Opening email client...');
+        // Get send button and show loading state
+        const sendBtn = document.querySelector('#email-section button[onclick="sendEmail()"]');
+        const originalHTML = sendBtn.innerHTML;
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = `
+            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Sending...
+        `;
+
+        try {
+            // Generate PDF as base64
+            const pdfBase64 = generatePDFBase64();
+            if (!pdfBase64) {
+                throw new Error('Failed to generate PDF.');
+            }
+
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    to,
+                    subject,
+                    textBody,
+                    htmlBody: `<div style="font-family: Arial, sans-serif; color: #1b1c1c; line-height: 1.6;">${textBody.replace(/\n/g, '<br>')}</div>`,
+                    pdfBase64,
+                    pdfFilename: getPDFFilename(),
+                }),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                showToast('Email sent successfully with PDF attached!');
+                document.getElementById('email-section').classList.add('hidden');
+            } else {
+                showToast(`Failed to send: ${result.error}`, 'error');
+            }
+        } catch (err) {
+            console.error('Email send error:', err);
+            showToast(`Error sending email: ${err.message}`, 'error');
+        } finally {
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = originalHTML;
+        }
     }
 
     // ─── Toast ───
